@@ -18,7 +18,7 @@
 
     <filter>
         <filter-name>FilterEncode</filter-name>
-        <filter-class>by.it.moroz.jd03.project.java.FilterEncode</filter-class>
+        <filter-class>by.it.moroz.jd03.project.java.filters.FilterEncode</filter-class>
         <init-param>
             <param-name>encode</param-name>
             <param-value>UTF-8</param-value>
@@ -27,6 +27,16 @@
 
     <filter-mapping>
         <filter-name>FilterEncode</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>Auth</filter-name>
+        <filter-class>by.it.moroz.jd03.project.java.filters.Auth</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Auth</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

@@ -16,6 +16,7 @@ public class CmdIndex implements Cmd {
     public Action execute(HttpServletRequest req) throws SQLException {
         List<Request> requests = Dao.getDao().request.getAll("");
         req.setAttribute("requests",requests);
+        System.out.println(requests);
         return Action.INDEX;
     }
 }

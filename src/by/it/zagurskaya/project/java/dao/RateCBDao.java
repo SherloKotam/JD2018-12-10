@@ -3,10 +3,7 @@ package by.it.zagurskaya.project.java.dao;
 import by.it.zagurskaya.project.java.ConnCreator;
 import by.it.zagurskaya.project.java.beans.RateCB;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +67,18 @@ public class RateCBDao extends AbstractDao implements Dao<RateCB> {
         }
         return result;
     }
+    public double rateCBToday(Timestamp timestamp, long coming, long spending) throws SQLException {
+        List<RateCB> rateCB = getAll(" WHERE `timestamp`<='" + timestamp + "' AND `coming`="+coming+" AND `spending`="+spending);
+        return rateCB.get(rateCB.size()-1).getSum();
+    }
 
+    public List<RateCB> rateCBBuyToday(Timestamp timestamp) throws SQLException {
+        List<RateCB> rateCB = getAll(" WHERE `timestamp`<='" + timestamp + "' AND `spending`=933");
+        return rateCB;
+    }
+
+    public List<RateCB> rateCBSaleToday(Timestamp timestamp) throws SQLException {
+        List<RateCB> rateCB = getAll(" WHERE `timestamp`<='" + timestamp + "' AND `coming`=933");
+        return rateCB;
+    }
 }

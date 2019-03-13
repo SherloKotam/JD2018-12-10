@@ -14,9 +14,9 @@ public class UserOperationDao extends AbstractDao implements Dao<UserOperation> 
     @Override
     public boolean create(UserOperation userOperation) throws SQLException {
         String sql = String.format(
-                "INSERT INTO `usersOperations`(`timestamp`, `rate`, `sum`, `currencyId`, `userId`, `OperationId`, `specification`, `checkingAccount`)" +
-                        "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')",
-                userOperation.getTimestamp(), userOperation.getRate(), userOperation.getSum(), userOperation.getCurrencyId(), userOperation.getUserId(), userOperation.getOperationId(), userOperation.getSpecification(), userOperation.getCheckingAccount());
+                "INSERT INTO `usersOperations`(`timestamp`, `rate`, `sum`, `currencyId`, `userId`,`dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`)" +
+                        "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                userOperation.getTimestamp(), userOperation.getRate(), userOperation.getSum(), userOperation.getCurrencyId(), userOperation.getUserId(), userOperation.getDutiesId(), userOperation.getOperationId(), userOperation.getSpecification(), userOperation.getCheckingAccount(), userOperation.getFio());
         userOperation.setId(executeCreate(sql));
         return userOperation.getId() > 0;
     }
@@ -30,8 +30,8 @@ public class UserOperationDao extends AbstractDao implements Dao<UserOperation> 
     @Override
     public boolean update(UserOperation userOperation) throws SQLException {
         String sql = String.format(
-                "UPDATE `usersOperations` SET `timestamp`='%s', `rate`='%s',`sum`='%s' ,`currencyId`='%s' ,`userId`='%s',`OperationId`='%s',`specification`='%s',`checkingAccount`='%s', `id`='%d'  WHERE `id`='%d'",
-                userOperation.getTimestamp(), userOperation.getRate(), userOperation.getSum(), userOperation.getCurrencyId(), userOperation.getUserId(), userOperation.getOperationId(), userOperation.getSpecification(), userOperation.getCheckingAccount(), userOperation.getId(), userOperation.getId());
+                "UPDATE `usersOperations` SET `timestamp`='%s', `rate`='%s',`sum`='%s' ,`currencyId`='%s' ,`userId`='%s', `dutiesId`='%s', `operationId`='%s',`specification`='%s',`checkingAccount`='%s',`fio`='%s', `id`='%d'  WHERE `id`='%d'",
+                userOperation.getTimestamp(), userOperation.getRate(), userOperation.getSum(), userOperation.getCurrencyId(), userOperation.getUserId(), userOperation.getDutiesId(), userOperation.getOperationId(), userOperation.getSpecification(), userOperation.getCheckingAccount(),userOperation.getFio(), userOperation.getId(), userOperation.getId());
         return executeUpdate(sql);
     }
 
@@ -56,7 +56,7 @@ public class UserOperationDao extends AbstractDao implements Dao<UserOperation> 
             String sql = String.format(
                     "SELECT * FROM `usersOperations` " + where);
             ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 UserOperation userOperation = new UserOperation();
                 userOperation.setId(resultSet.getLong("id"));
                 userOperation.setTimestamp(resultSet.getTimestamp("timestamp"));
@@ -64,13 +64,24 @@ public class UserOperationDao extends AbstractDao implements Dao<UserOperation> 
                 userOperation.setSum(resultSet.getDouble("sum"));
                 userOperation.setCurrencyId(resultSet.getInt("currencyId"));
                 userOperation.setUserId(resultSet.getInt("userId"));
-                userOperation.setOperationId(resultSet.getLong("OperationId"));
+                userOperation.setDutiesId(resultSet.getInt("dutiesId"));
+                userOperation.setOperationId(resultSet.getLong("operationId"));
                 userOperation.setSpecification(resultSet.getString("specification"));
                 userOperation.setCheckingAccount(resultSet.getString("checkingAccount"));
+                userOperation.setFio(resultSet.getString("fio"));
                 result.add(userOperation);
             }
         }
         return result;
+    }
+
+    public List<UserOperation> userAndDutiesOperation(long userId, long dutiesID) throws SQLException {
+        String where = String.format(" WHERE `userId`='%d' AND `dutiesId` = '%s' ", userId, dutiesID);
+        return getAll(where);
+    }
+    public List<UserOperation> userAndDutiesAndNumberOperation(long userId, long dutiesID, String number) throws SQLException {
+        String where = String.format(" WHERE `userId`='%d' AND `dutiesId` = '%s' AND `operationId` IN ('%s') ", userId, dutiesID, number);
+        return getAll(where);
     }
 }
 

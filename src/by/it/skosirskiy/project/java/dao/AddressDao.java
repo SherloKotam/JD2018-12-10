@@ -51,11 +51,12 @@ public class AddressDao extends AbstractDao implements InterfaceDAO<Address> {
         @Override
         public List<Address> getAll(String WHERE) {
                 List<Address> Addresses = new ArrayList<>();
-                String sql = "SELECT * FROM `address` " + WHERE + ";";
-                System.out.println("sql  "+sql);
+
                 try (Connection connection = ConnCreator.getConnection();
                      Statement statement = connection.createStatement()
+
                 ) {
+                        String sql = "SELECT * FROM `address` " + WHERE + ";";
                         ResultSet rs = statement.executeQuery(sql);
                         while (rs.next()) {
                                 Address address = new Address();

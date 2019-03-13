@@ -8,6 +8,6 @@ public class Start {
         Publisher publisher = new Publisher();
         publisher.addListener(subscriber1);
         publisher.addListener(subscriber2);
-        publisher.createNewMessage("Message!");
+        publisher.createNewMessage("Messages!");
     }
 }

@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `moroz`.`orders` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `menu_id` INT NOT NULL,
   `count` INT NULL,
-  `chek` DOUBLE NULL,
+  `check` DOUBLE NULL,
   `users_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_orders_users1_idx` (`users_id` ASC),
@@ -74,13 +74,13 @@ CREATE TABLE IF NOT EXISTS `moroz`.`orders` (
   CONSTRAINT `fk_orders_users1`
     FOREIGN KEY (`users_id`)
     REFERENCES `moroz`.`users` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
   CONSTRAINT `fk_orders_Menu1`
     FOREIGN KEY (`menu_id`)
     REFERENCES `moroz`.`menu` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
 
@@ -131,11 +131,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `moroz`;
-INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `chek`, `users_id`) VALUES (DEFAULT, 1, 2, 59.2, 1);
-INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `chek`, `users_id`) VALUES (DEFAULT, 2, 1, 13.4, 1);
-INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `chek`, `users_id`) VALUES (DEFAULT, 3, 2, 23.2, 1);
-INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `chek`, `users_id`) VALUES (DEFAULT, 4, 1, 9.3, 3);
-INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `chek`, `users_id`) VALUES (DEFAULT, 5, 1, 5.0, 3);
+INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `check`, `users_id`) VALUES (DEFAULT, 1, 2, 59.2, 1);
+INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `check`, `users_id`) VALUES (DEFAULT, 2, 1, 13.4, 1);
+INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `check`, `users_id`) VALUES (DEFAULT, 3, 2, 23.2, 1);
+INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `check`, `users_id`) VALUES (DEFAULT, 4, 1, 9.3, 3);
+INSERT INTO `moroz`.`orders` (`id`, `menu_id`, `count`, `check`, `users_id`) VALUES (DEFAULT, 5, 1, 5.0, 3);
 
 COMMIT;
 

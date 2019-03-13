@@ -5,17 +5,32 @@
          version="3.0"
          metadata-complete="true">
     <display-name>Сервлет Controller</display-name>
-
+    <welcome-file-list>
+        <welcome-file>INDEX</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>FrontController</servlet-name>
         <servlet-class>by.it.skosirskiy.project.java.controller.FrontController</servlet-class>
+        <multipart-config/>
     </servlet>
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>
         <url-pattern>/do</url-pattern>
+        <url-pattern>/INDEX</url-pattern>
     </servlet-mapping>
 
     <filter>
+        <filter-name>Auth</filter-name>
+        <filter-class>by.it.skosirskiy.project.java.controller.Auth</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Auth</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+
     <filter-name>NoCacheFilter</filter-name>
     <filter-class>by.it.skosirskiy.project.java.controller.NoCacheFilter</filter-class>
     </filter>
@@ -37,6 +52,7 @@
         <filter-name>EncodingUTF8</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 
 
 

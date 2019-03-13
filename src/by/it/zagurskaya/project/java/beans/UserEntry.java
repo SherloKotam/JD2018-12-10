@@ -26,6 +26,10 @@ public class UserEntry implements Entity {
         this.rate = rate;
     }
 
+    public UserEntry(long id) {
+        this.id = id;
+    }
+
     @Override
     public long getId() {
         return id;

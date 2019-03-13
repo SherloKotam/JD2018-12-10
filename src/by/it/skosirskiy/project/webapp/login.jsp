@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <%@ include file="include/head.jsp" %>
@@ -19,7 +20,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="login">Login</label>
                 <div class="col-md-4">
-                    <input id="login" name="login" value="testLogin" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="login" name="login" value="admin1" type="text" placeholder="" class="form-control input-md" required="">
 
                 </div>
             </div>
@@ -28,7 +29,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="password">Password</label>
                 <div class="col-md-4">
-                    <input id="password" name="password" value="testPassword" type="password" placeholder="" class="form-control input-md" required="">
+                    <input id="password" name="password" value="admin1" type="password" placeholder="" class="form-control input-md" required="">
 
                 </div>
             </div>
@@ -37,7 +38,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="loginButton"></label>
                 <div class="col-md-4">
-                    <button id="loginButton" name="loginButton" class="btn btn-primary">Login</button>
+                    <button id="loginButton" name="loginButton" class="btn btn-primary">Войти</button>
                 </div>
             </div>
 

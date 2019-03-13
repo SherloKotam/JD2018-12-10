@@ -10,17 +10,16 @@ public class CmdSignup implements Cmd {
     @Override
     public Action execute(HttpServletRequest req) throws Exception {
         if(Form.isPost(req)){
+            String email = Form.getString(req, "email");
             String login = Form.getString(req, "login");
             String password = Form.getString(req, "password");
-            String email = Form.getString(req, "email");
-            DAO dao = DAO.getInstance();
-            User user = new User();
-            user.setRole_id(2);
+            User user = new User(0, login, email, password, 3);
             user.setLogin(login);
             user.setPassword(password);
             user.setEmail(email);
-            if(dao.user.create(user)){
-                return Action.LOGIN;
+            user.setRole_id(3);
+            if(DAO.getInstance().user.create(user)){
+                return Action.INDEX;
             }
         }
         return Action.SIGNUP;

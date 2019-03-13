@@ -1,5 +1,6 @@
 package by.it.zagurskaya.project.java.beans;
 
+//import java.util.Date;
 import java.sql.Date;
 
 public class Kassa implements Entity {
@@ -12,12 +13,12 @@ public class Kassa implements Entity {
     private double balance;
     private long userId; //userId
     private Date date;
-    private long dutiesNumber; // int dutiesNumber
+    private long dutiesId; // int dutiesNumber
 
     public Kassa() {
     }
 
-    public Kassa(long id, long currencyId, double received, double coming, double spending, double transmitted, double balance, long userId, Date date, long dutiesNumber) {
+    public Kassa(long id, long currencyId, double received, double coming, double spending, double transmitted, double balance, long userId, Date date, long dutiesId) {
         this.id = id;
         this.currencyId = currencyId;
         this.received = received;
@@ -27,7 +28,7 @@ public class Kassa implements Entity {
         this.balance = balance;
         this.userId = userId;
         this.date = date;
-        this.dutiesNumber = dutiesNumber;
+        this.dutiesId = dutiesId;
     }
 
     @Override
@@ -103,12 +104,12 @@ public class Kassa implements Entity {
         this.date = date;
     }
 
-    public long getDutiesNumber() {
-        return dutiesNumber;
+    public long getDutiesId() {
+        return dutiesId;
     }
 
-    public void setDutiesNumber(long dutiesNumber) {
-        this.dutiesNumber = dutiesNumber;
+    public void setDutiesId(long dutiesId) {
+        this.dutiesId = dutiesId;
     }
 
     @Override
@@ -123,7 +124,7 @@ public class Kassa implements Entity {
                 ", balance=" + balance +
                 ", userId=" + userId +
                 ", date=" + date +
-                ", dutiesNumber=" + dutiesNumber +
+                ", dutiesId=" + dutiesId +
                 '}';
     }
 }

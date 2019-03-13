@@ -151,29 +151,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `zagurskaya`.`usersOperations`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `zagurskaya`.`usersOperations` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `timestamp` TIMESTAMP(6) NOT NULL,
-  `rate` DOUBLE NOT NULL,
-  `sum` DOUBLE NOT NULL,
-  `currencyId` INT NOT NULL,
-  `userId` INT NOT NULL,
-  `operationId` INT NOT NULL,
-  `specification` VARCHAR(100) NULL,
-  `checkingAccount` VARCHAR(28) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_users_has_operations_users1_idx` (`userId` ASC),
-  CONSTRAINT `fk_users_has_operations_users1`
-    FOREIGN KEY (`userId`)
-    REFERENCES `zagurskaya`.`users` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `zagurskaya`.`duties`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zagurskaya`.`duties` (
@@ -193,6 +170,37 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `zagurskaya`.`usersOperations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zagurskaya`.`usersOperations` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `timestamp` TIMESTAMP(6) NOT NULL,
+  `rate` DOUBLE NOT NULL,
+  `sum` DOUBLE NOT NULL,
+  `currencyId` INT NOT NULL,
+  `userId` INT NOT NULL,
+  `dutiesId` INT NOT NULL,
+  `operationId` INT NOT NULL,
+  `specification` VARCHAR(100) NULL,
+  `checkingAccount` VARCHAR(28) NULL,
+  `fio` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_users_has_operations_users1_idx` (`userId` ASC),
+  INDEX `fk_usersOperations_duties1_idx` (`dutiesId` ASC),
+  CONSTRAINT `fk_users_has_operations_users1`
+    FOREIGN KEY (`userId`)
+    REFERENCES `zagurskaya`.`users` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_usersOperations_duties1`
+    FOREIGN KEY (`dutiesId`)
+    REFERENCES `zagurskaya`.`duties` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `zagurskaya`.`kassa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zagurskaya`.`kassa` (
@@ -205,14 +213,20 @@ CREATE TABLE IF NOT EXISTS `zagurskaya`.`kassa` (
   `balance` DOUBLE NULL,
   `userId` INT NOT NULL,
   `date` DATE NULL,
-  `dutiesNumber` INT NULL,
+  `dutiesId` INT NOT NULL,
   INDEX `fk_kassa_users1_idx` (`userId` ASC),
   PRIMARY KEY (`id`),
+  INDEX `fk_kassa_duties1_idx` (`dutiesId` ASC),
   CONSTRAINT `fk_kassa_users1`
     FOREIGN KEY (`userId`)
     REFERENCES `zagurskaya`.`users` (`id`)
     ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_kassa_duties1`
+    FOREIGN KEY (`dutiesId`)
+    REFERENCES `zagurskaya`.`duties` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -305,6 +319,7 @@ INSERT INTO `zagurskaya`.`rateNB` (`id`, `currencyId`, `date`, `sum`) VALUES (DE
 INSERT INTO `zagurskaya`.`rateNB` (`id`, `currencyId`, `date`, `sum`) VALUES (DEFAULT, 978, '2018-02-01', 2.44);
 INSERT INTO `zagurskaya`.`rateNB` (`id`, `currencyId`, `date`, `sum`) VALUES (DEFAULT, 643, '2018-02-01', 0.0324);
 INSERT INTO `zagurskaya`.`rateNB` (`id`, `currencyId`, `date`, `sum`) VALUES (DEFAULT, 933, '2018-02-01', 1);
+INSERT INTO `zagurskaya`.`rateNB` (`id`, `currencyId`, `date`, `sum`) VALUES (DEFAULT, 840, '2018-02-25', 2.161);
 
 COMMIT;
 
@@ -343,38 +358,26 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `zagurskaya`;
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100001, 'Получено валюты', 840, 1000, '', '1010000000840', 0, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100002, 'Получено валюты', 978, 1000, '', '1010000000978', 0, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100003, 'Получено валюты', 643, 1000, '', '1010000000643', 0, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100004, 'Получено валюты', 933, 1000, '', '1010000000933', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100001, 'Получено валюты', 840, 1000, '1011000000840', '1010000000840', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100002, 'Получено валюты', 978, 1000, '1011000000978', '1010000000978', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100003, 'Получено валюты', 643, 1000, '1011000000643', '1010000000643', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (100004, 'Получено валюты', 933, 1000, '1011000000933', '1010000000933', 0, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1001, 'Покупка валюты(840)', 840, 10, '1010000000840', '6901000000840', 0, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1002, 'Рублевый эквивалент(840)', 933, 10, '6911000000840', '1010000000933', 1, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1003, 'Покупка валюты(978)', 978, 10, '1010000000978', '6901000000978', 0, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1004, 'Рублевый эквивалент(978)', 933, 10, '6911000000978', '1010000000933', 1, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1005, 'Покупка валюты(643)', 643, 10, '1010000000643', '6901000000643', 0, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1006, 'Рублевый эквивалент(643)', 933, 10, '6911000000643', '1010000000933', 1, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2001, 'Продажа валюты(840)', 840, 20, '6901000000840', '1010000000840', 1, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2002, 'Рублевый эквивалент(840)', 933, 20, '1010000000840', '6911000000840', 0, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2003, 'Продажа валюты(978)', 978, 20, '6901000000978', '1010000000978', 1, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2004, 'Рублевый эквивалент(978)', 933, 20, '1010000000978', '6911000000978', 0, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2005, 'Продажа валюты(643)', 643, 20, '690100000063', '1010000000643', 1, NULL);
-INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2006, 'Рублевый эквивалент(643)', 933, 20, '1010000000643', '6911000000643', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (2006, 'Рублевый эквивалент(643)', 933, 20, '1010000000643', '6911000000000', 0, NULL);
 INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (99801, 'Приход денежных средст в кассу', 933, 998, '1010000000933', '3819000000000', 0, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `zagurskaya`.`usersOperations`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `zagurskaya`;
-INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `operationId`, `specification`, `checkingAccount`) VALUES (DEFAULT, '2018-02-01 11:12:13', 2.1, 1000, 840, 2, 1000, 'Получены денежные средства', NULL);
-INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `operationId`, `specification`, `checkingAccount`) VALUES (DEFAULT, '2018-02-01 11:13:13', 2.1, 100, 840, 2, 10, 'В личное пользование', NULL);
-INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `operationId`, `specification`, `checkingAccount`) VALUES (DEFAULT, '2018-02-01 11:14:13', 1, 56, 933, 2, 998, 'За питание в СД№3', '3012000000005');
-INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `operationId`, `specification`, `checkingAccount`) VALUES (DEFAULT, '2018-02-01 11:15:13', 2.1, 1000, 840, 3, 1000, 'Получены денежные средства', NULL);
-INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `operationId`, `specification`, `checkingAccount`) VALUES (DEFAULT, '2018-02-01 11:16:13', 2.15, 200, 840, 3, 20, 'В личное пользование', NULL);
-INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `operationId`, `specification`, `checkingAccount`) VALUES (DEFAULT, '2018-02-01 11:17:13', 1, 20, 933, 3, 998, 'За мобильный телефор', '3012000000023');
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (110001, 'Отправлено валюты', 840, 1100, '1010000000840', '1011000000840', 1, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (110002, 'Отправлено валюты', 978, 1100, '1010000000978', '1011000000978', 1, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (110003, 'Отправлено валюты', 643, 1100, '1010000000643', '1011000000643', 1, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (110004, 'Отправлено валюты', 933, 1100, '1010000000933', '1011000000933', 1, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (99802, 'Приход денежных средст в кассу', 643, 998, '1010000000643', '3819000000643', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (99803, 'Приход денежных средст в кассу', 840, 998, '1010000000840', '3819000000840', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (99804, 'Приход денежных средст в кассу', 978, 998, '1010000000840', '3819000000978', 0, NULL);
+INSERT INTO `zagurskaya`.`sprEntries` (`id`, `name`, `currencyId`, `sprOperationsId`, `accountDebit`, `accountCredit`, `isSpending`, `rate`) VALUES (1006, 'Рублевый эквивалент', 933, 10, '6911000000000', '1010000000933', 1, NULL);
 
 COMMIT;
 
@@ -391,18 +394,33 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `zagurskaya`.`usersOperations`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `zagurskaya`;
+INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`) VALUES (DEFAULT, '2018-02-01 11:12:13', 2.1, 1000, 840, 2, 1, 1000, 'Получены денежные средства', NULL, NULL);
+INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`) VALUES (DEFAULT, '2018-02-01 11:13:13', 2.1, 100, 840, 2, 1, 10, 'В личное пользование', NULL, NULL);
+INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`) VALUES (DEFAULT, '2018-02-01 11:14:13', 1, 56, 933, 2, 1, 998, 'За питание в СД№3', '3012000000005', NULL);
+INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`) VALUES (DEFAULT, '2018-02-01 11:15:13', 2.1, 1000, 840, 3, 2, 1000, 'Получены денежные средства', NULL, NULL);
+INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`) VALUES (DEFAULT, '2018-02-01 11:16:13', 2.15, 200, 840, 3, 2, 20, 'В личное пользование', NULL, NULL);
+INSERT INTO `zagurskaya`.`usersOperations` (`id`, `timestamp`, `rate`, `sum`, `currencyId`, `userId`, `dutiesId`, `operationId`, `specification`, `checkingAccount`, `fio`) VALUES (DEFAULT, '2018-02-01 11:17:13', 1, 20, 933, 3, 2, 998, 'За мобильный телефор', '3012000000023', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `zagurskaya`.`kassa`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `zagurskaya`;
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 643, 0, 0, 0, 0, 0, 2, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 840, 1000, 100, 0, 0, 1100, 2, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 978, 0, 0, 0, 0, 0, 2, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 933, 1000, 100, 210, 0, 690, 2, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 643, 0, 0, 0, 0, 0, 3, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 840, 1000, 0, 200, 0, 800, 3, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 978, 0, 0, 0, 0, 0, 3, '2018-02-01', 1);
-INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesNumber`) VALUES (DEFAULT, 933, 1000, 450, 0, 0, 1450, 3, '2018-02-01', 1);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 643, 0, 0, 0, 0, 0, 2, '2018-02-01', 1);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 840, 1000, 100, 0, 0, 1100, 2, '2018-02-01', 1);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 978, 0, 0, 0, 0, 0, 2, '2018-02-01', 1);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 933, 1000, 100, 210, 0, 690, 2, '2018-02-01', 1);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 643, 0, 0, 0, 0, 0, 3, '2018-02-01', 2);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 840, 1000, 0, 200, 0, 800, 3, '2018-02-01', 2);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 978, 0, 0, 0, 0, 0, 3, '2018-02-01', 2);
+INSERT INTO `zagurskaya`.`kassa` (`id`, `currencyId`, `received`, `coming`, `spending`, `transmitted`, `balance`, `userId`, `date`, `dutiesId`) VALUES (DEFAULT, 933, 1000, 450, 0, 0, 1450, 3, '2018-02-01', 2);
 
 COMMIT;
 

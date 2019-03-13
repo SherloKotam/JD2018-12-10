@@ -4,9 +4,12 @@ package by.it.zagurskaya.project.java.controller;
 import by.it.zagurskaya.project.java.beans.User;
 import by.it.zagurskaya.project.java.dao.UserDao;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import org.apache.commons.codec.digest.Md5Crypt;
+
 
 public class CmdLogin implements Cmd {
     @Override
@@ -23,6 +26,11 @@ public class CmdLogin implements Cmd {
                 User user = users.get(0);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
+                Cookie cookie = new Cookie("hash", Util.getHash(user));
+                Util.setCookie(req, cookie);
+                cookie = new Cookie("login", user.getLogin());
+                Util.setCookie(req, cookie);
+
 
                 Action.PROFILE.setPATH("/");
                 return Action.PROFILE;

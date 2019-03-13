@@ -4,6 +4,7 @@ import by.it.subach.jd03_03.beans.*;
 import by.it.subach.jd03_03.dao.DAO;
 
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class Runner {
     public static void main(String[] args) throws SQLException {
@@ -58,14 +59,19 @@ public class Runner {
 
         System.out.println("===============================product===================================");
         Product product = new Product();
-        product.setCategories_id(2);
+        product.setCategories_id(1);
         System.out.println(product);
         product.setDescription("testDescription");
+        System.out.println(product);
+
         if(dao.product.create(product)) {
             System.out.println("Create OK: " + product);
         }
         product.setName("testName");
+        System.out.println(product);
         product.setPrice(20.00);
+        System.out.println(product);
+
         if(dao.product.update(product))
             System.out.println("Update OK: " + product);
         product = dao.product.read(product.getId());

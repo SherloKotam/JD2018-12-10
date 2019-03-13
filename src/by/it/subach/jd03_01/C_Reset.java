@@ -22,7 +22,7 @@ public class C_Reset {
                              "");
              Statement statement = connection.createStatement()
         ) {
-            statement.executeUpdate("DROP SCHEMA IF EXISTS `internet_shop` ;");
+            statement.executeUpdate("DROP SCHEMA IF EXISTS `subach` ;");
             System.out.println("DataBase DELETE");
         } catch (SQLException e) {
             e.printStackTrace();

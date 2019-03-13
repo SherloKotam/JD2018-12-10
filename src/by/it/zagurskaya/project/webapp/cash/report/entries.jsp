@@ -1,26 +1,57 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <%@ include file="/../include/head.jsp" %>
 <body>
 <div class="container">
-    <%@ include file="/../include/menucash.jsp" %>
-    <p>Cash report ${message}</p>
-    <table style="width:100%; height:80%">
-       <tr>
-          <td colspan="8" style="text-align:center;border: 1px solid black;width: 30%;">
-           <ul class="nav flex-column">
-             <li class="nav-item">
-               <a class="nav-link " href="do?command=SprReports">SprReports</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link active" href="do?command=Entries">Entries</a>
-             </li>
-           </ul>
-          </td>
-          <td style="border: 1px solid black;  text-align: center ;width:70%" data-toggle="dropdown">
-               All Entries
-          </td>
-       </tr>
-    </table>
+    <%@ include file="/../include/menucashnew.jsp" %>
+    <br>
+    <H4>Итоговые проводки </H4>
+        <div class="row">
+            <div class=col-md-3>Наименование</div>
+            <div class=col-md-2>Счет Дебит</div>
+            <div class=col-md-2>Счет Кредит</div>
+            <div class=col-md-1>Валюта</div>
+            <div class=col-md-2>Сумма</div>
+            <div class=col-md-1>Курс</div>
+        </div>
+        <c:forEach items="${entriesList}" var="entry">
+            <c:forEach items="${sprEntries}" var="sprEntries">
+                <c:if test="${sprEntries.id==entry.sprEntryId}" >
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <input id="currencyId" name="currencyId" type="text" placeholder="" class="form-control input-md"
+                               required="" value="${sprEntries.name}">
+                    </div>
+
+                    <div class="col-md-2">
+                        <input id="received" name="received" type="text" placeholder="" class="form-control input-md"
+                               required="" value="${entry.accountDebit}">
+                    </div>
+
+                    <div class="col-md-2">
+                        <input id="coming" name="coming" type="text" placeholder="" class="form-control input-md"
+                               required="" value="${entry.accountCredit}">
+                    </div>
+
+                    <div class="col-md-1">
+                        <input id="spending" name="spending" type="text" placeholder="" class="form-control input-md"
+                               required="" value="${entry.currencyId}">
+                    </div>
+
+                    <div class="col-md-2">
+                        <input id="transmitted" name="transmitted" type="text" placeholder="" class="form-control input-md"
+                               required="" value="${entry.sum}">
+                    </div>
+
+                    <div class="col-md-1">
+                        <input id="balance" name="balance" type="text" placeholder="" class="form-control input-md"
+                               required="" value="${entry.rate}">
+                    </div>
+                 </c:if>
+                </c:forEach>
+            </div>
+        </c:forEach>
 </div>
 </body>
 </html>

@@ -4,7 +4,9 @@
 <body>
 <div class="container">
     <%@ include file="include/menu.jsp" %>
-    <p>${menu}</p>
+
+        <h1>Welcome!</h1>
+
 </div>
 </body>
 </html>

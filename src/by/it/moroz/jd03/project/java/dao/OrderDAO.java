@@ -20,7 +20,7 @@ public class OrderDAO extends AbstractDAO implements InterfaceDAO<Order> {
 
     @Override
     public boolean create(Order order) throws SQLException {
-        String sql = String.format("INSERT INTO `orders` (`menu_id`, `count`, `check`, `users_id`)"+
+        String sql = String.format("INSERT INTO `moroz`.`orders` (`menu_id`, `count`, `check`, `users_id`)"+
                 "VALUES ('%d','%d','%f','%d')", order.getMenu_id(),order.getCount(),
                 order.getCheck(),order.getUsers_id());
         order.setId(executeCreate(sql));
@@ -29,7 +29,7 @@ public class OrderDAO extends AbstractDAO implements InterfaceDAO<Order> {
 
     @Override
     public boolean update(Order order) throws SQLException {
-        String sql = String.format("UPDATE `orders` SET `menu_id`='%d', `count`='%d', " +
+        String sql = String.format("UPDATE `moroz`.`orders` SET `menu_id`='%d', `count`='%d', " +
                         "`check`='%f', `user_id`='%d' WHERE `id`='%d'",
                 order.getMenu_id(), order.getCount(), order.getCheck(), order.getUsers_id(),
                 order.getId());
@@ -39,7 +39,7 @@ public class OrderDAO extends AbstractDAO implements InterfaceDAO<Order> {
     @Override
     public boolean delete(Order order) throws SQLException {
         String sql = String.format(
-                "DELETE FROM `orders` WHERE `id`='%d'",
+                "DELETE FROM `moroz`.`orders` WHERE `id`='%d'",
                 order.getId());
         return executeUpdate(sql);
     }
@@ -52,7 +52,7 @@ public class OrderDAO extends AbstractDAO implements InterfaceDAO<Order> {
     @Override
     public List<Order> getAll(String WHERE) throws SQLException {
         List<Order> result = new ArrayList<>();
-            String sql = "SELECT * FROM `orders` "+WHERE;
+            String sql = "SELECT * FROM `moroz`.`orders` "+WHERE;
         try (Connection connection = ConnCreator.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);

@@ -73,4 +73,5 @@ public class UserEntryDao extends AbstractDao implements Dao<UserEntry> {
         return result;
     }
 
+
 }

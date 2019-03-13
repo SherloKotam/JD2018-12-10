@@ -5,9 +5,11 @@
          version="3.0"
          metadata-complete="true">
     <display-name>Сервлеты akhmelev</display-name>
+
     <welcome-file-list>
         <welcome-file>INDEX</welcome-file>
     </welcome-file-list>
+
     <servlet>
         <servlet-name>FrontController</servlet-name>
         <servlet-class>by.it.a_khmelev.project08.java.controller.FrontController</servlet-class>
@@ -53,7 +55,5 @@
         <filter-name>FilterImages</filter-name>
         <url-pattern>/images/*</url-pattern>
     </filter-mapping>
-
-
 
 </web-app>

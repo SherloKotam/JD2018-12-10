@@ -15,7 +15,7 @@ public class Runner {
         User user = new User(0, "TestUser", "TestPassword", "TestEmail", "TestPAddress",
                 "TestName", "TestSurname", 447569453, 2);
         if (userCRUD.createUser(user))
-            System.out.println("CREATEGOODSFLOWER OK: " + user);
+            System.out.println("CREATE OK: " + user);
         user.setLogin("TestUserUpdate");
         if (userCRUD.updateUser(user))
             System.out.println("UPDATE OK: " + user);
@@ -29,7 +29,7 @@ public class Runner {
 
         Role role = new Role(0, "TestRole");
         if (roleCRUD.createRole(role))
-            System.out.println("CREATEGOODSFLOWER OK: " + role);
+            System.out.println("CREATE OK: " + role);
         role.setRole("TestRoleUpdate");
         if (roleCRUD.updateRole(role))
             System.out.println("UPDATE OK: " + role);

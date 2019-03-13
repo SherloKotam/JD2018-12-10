@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <%@ include file="/../include/menu.jsp" %>
-    <p>INDEX ${message}</p>
+        <H1> CASH</H1>
 </div>
 </body>
 </html>

@@ -45,7 +45,7 @@ class MenuCRUD {
     boolean updateMenu(Menu menu) throws SQLException {
         try (Connection connection = ConnCreator.getConnection();
              Statement statement = connection.createStatement()) {
-            String update = String.format("UPDATE `menu` SET `name`='%s', `price`='%f', " +
+            String update = String.format("UPDATE `menu` SET `name`='%s', `price`='%f' " +
                             "WHERE `id`='%d'", menu.getName(), menu.getPrice(), menu.getId());
             return 1==statement.executeUpdate(update);
         }

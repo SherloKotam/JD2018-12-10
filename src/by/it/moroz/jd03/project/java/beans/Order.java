@@ -43,7 +43,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", menu_id='" + menu_id + '\'' +
+                ", menu_id=" + menu_id +
                 ", count=" + count +
                 ", check=" + check +
                 ", users_id=" + users_id +

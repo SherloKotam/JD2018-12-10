@@ -50,10 +50,11 @@ public class StatusDao extends AbstractDao implements InterfaceDAO<Status> {
     @Override
     public List<Status> getAll(String WHERE) throws SQLException {
         List<Status> statuses = new ArrayList<>();
-        String sql = "SELECT * FROM statuses " + WHERE + " ;";
+
         try (Connection connection = ConnCreator.getConnection();
              Statement statement = connection.createStatement()
         ) {
+            String sql = "SELECT * FROM statuses " + WHERE + " ;";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Status status = new Status();

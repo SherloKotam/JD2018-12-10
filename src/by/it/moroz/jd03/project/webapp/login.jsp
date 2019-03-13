@@ -15,7 +15,8 @@
             <div class="form-group">
                  <label class="col-md-4 control-label" for="email">Email</label>
                  <div class="col-md-4">
-                     <input id="email" name="email" value="testEmail@gmail.com" type="text" placeholder="" class="form-control input-md">
+                     <input id="email" name="email" value="" type="text" placeholder="youremail@gmail.com"
+                     class="form-control input-md" required="">
 
                  </div>
             </div>
@@ -24,7 +25,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="password">Password</label>
                 <div class="col-md-4">
-                    <input id="password" name="password" value="testPassword" type="password" placeholder="" class="form-control input-md">
+                    <input id="password" name="password" value="" type="password" placeholder=""
+                    class="form-control input-md" required="">
 
                 </div>
             </div>

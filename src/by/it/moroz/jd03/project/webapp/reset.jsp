@@ -14,7 +14,7 @@
     <div class="form-group">
          <label class="col-md-4 control-label" for="reset">Are u shure?</label>
          <div class="col-md-4">
-             <button id="reset" name="reset" class="btn btn-primary">Reset</button>
+             <button id="reset" name="reset" class="btn btn-danger">Reset</button>
          </div>
     </div>
 

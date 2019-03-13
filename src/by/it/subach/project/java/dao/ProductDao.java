@@ -8,18 +8,22 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductDao extends AbstractDao implements InterfaceDao<Product> {
+    NumberFormat nf = NumberFormat.getInstance(Locale.US);
 
     @Override
     public boolean create(Product product) throws SQLException {
+        String price = nf.format(product.getPrice());
         String sql = String.format("INSERT INTO `products`" +
                         "(`product_name`, `product_price`, `product_description`, `categories_id`) " +
-                        "VALUES ('%s','%.2f','%s','%d')",
+                        "VALUES ('%s','%s','%s','%d')",
                 product.getName(),
-                product.getPrice(),
+                price,
                 product.getDescription(),
                 product.getCategories_id()
         );
@@ -41,11 +45,12 @@ public class ProductDao extends AbstractDao implements InterfaceDao<Product> {
     }
 
     public boolean update(Product product) throws SQLException {
+        String price = nf.format(product.getPrice());
         String sql = String.format("UPDATE `products` " +
-                        "SET `product_name`='%s',`product_price`='%.2f',`product_description`='%s',`categories_id`='%d' " +
+                        "SET `product_name`='%s',`product_price`='%s',`product_description`='%s',`categories_id`='%d' " +
                         "WHERE `id`='%d'",
                 product.getName(),
-                product.getPrice(),
+                price,
                 product.getDescription(),
                 product.getCategories_id(),
                 product.getId()

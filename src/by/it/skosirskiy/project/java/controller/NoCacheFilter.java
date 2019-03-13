@@ -20,8 +20,6 @@ public class NoCacheFilter implements Filter {
             resp.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0");
             resp.setHeader("Pragma", "no-cache");
             filter.doFilter(req, resp);
-
-
         }
     }
 

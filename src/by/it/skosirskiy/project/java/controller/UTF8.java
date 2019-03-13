@@ -28,9 +28,7 @@ public class UTF8 implements Filter {
             if (!encode.equalsIgnoreCase(servletResponse.getCharacterEncoding()))
                 servletResponse.setCharacterEncoding(encode);
         }
-
         filterChain.doFilter(servletRequest,servletResponse);
-
     }
 
     @Override

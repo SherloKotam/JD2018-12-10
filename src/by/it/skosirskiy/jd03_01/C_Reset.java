@@ -8,21 +8,22 @@ public class C_Reset {
 
 
      void deleteTables() {
-        try (
-                Connection connection=
-                        DriverManager.getConnection
-                                (CN.URL_DB, CN.USER_DB, CN.PASSWORD_DB);
-                Statement statement=connection.createStatement()) {
-            //вставляем пользователей
+        try (Connection connection =
+                         DriverManager.getConnection(
+                                 "jdbc:mysql://127.0.0.1:2016/"+
+                                         "?useUnicode=true&characterEncoding=UTF-8",
+                                 "root",
+                                 "");
+                 Statement statement = connection.createStatement()
+         )  {
 
 
-            statement.executeUpdate("DROP TABLE `skosirskiy`.`requests`;");
-            statement.executeUpdate("DROP TABLE `skosirskiy`.`users`;");
-            statement.executeUpdate("DROP TABLE `skosirskiy`.`roles`;");
-            statement.executeUpdate("DROP TABLE `skosirskiy`.`statuses`;");
-            statement.executeUpdate("DROP TABLE `skosirskiy`.`address`;");
-            statement.executeUpdate("DROP DATABASE IF EXISTS `skosirskiy`;");
-
+//            statement.executeUpdate("DROP TABLE `skosirskiy`.`requests`;");
+//            statement.executeUpdate("DROP TABLE `skosirskiy`.`users`;");
+//            statement.executeUpdate("DROP TABLE `skosirskiy`.`roles`;");
+//            statement.executeUpdate("DROP TABLE `skosirskiy`.`statuses`;");
+//            statement.executeUpdate("DROP TABLE `skosirskiy`.`address`;");
+            statement.executeUpdate("DROP SCHEMA IF EXISTS `skosirskiy`;");
 
         }
         catch (Exception e){

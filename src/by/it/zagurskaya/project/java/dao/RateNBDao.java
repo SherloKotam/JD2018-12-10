@@ -3,10 +3,7 @@ package by.it.zagurskaya.project.java.dao;
 import by.it.zagurskaya.project.java.ConnCreator;
 import by.it.zagurskaya.project.java.beans.RateNB;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +64,11 @@ public class RateNBDao extends AbstractDao implements Dao<RateNB> {
             }
         }
         return result;
+    }
+    public double rateNBToday(Date date, long currencyId) throws SQLException {
+
+        List<RateNB> rateNB = getAll(" WHERE `date`<='" + date + "' AND `currencyId`="+currencyId);
+        return rateNB.get(rateNB.size()-1).getSum();
     }
 
 }

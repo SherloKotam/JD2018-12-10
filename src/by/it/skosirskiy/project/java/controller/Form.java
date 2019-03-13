@@ -28,4 +28,8 @@ public class Form {
         String value = req.getParameter(name);
         return Double.parseDouble(value);
     }
+    static long getLong(HttpServletRequest req, String name){
+        String value = req.getParameter(name);
+        return Long.parseLong(value);
+    }
 }

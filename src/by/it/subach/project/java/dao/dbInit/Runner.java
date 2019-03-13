@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class Runner {
     public static void main(String[] args) throws SQLException {
         C_Reset.resetDB();
-        C_Init.initDB();
+
         DAO dao = DAO.getInstance();
         User user = new User();
         user.setRole_id(1);
@@ -58,23 +58,22 @@ public class Runner {
         if(dao.category.delete(category))
             System.out.println("Delete OK: " + category);
 
-//        System.out.println("===============================product===================================");
-//        Product product = new Product();
-//        product.setCategories_id(2);
-//        product.setPrice(20.00);
-//        System.out.println(product);
-//        product.setDescription("testDescription");
-//        if(dao.product.create(product)) {
-//            System.out.println("Create OK: " + product);
-//        }
-//        product.setName("testName");
-//        if(dao.product.update(product))
-//            System.out.println("Update OK: " + product);
-//        product = dao.product.read(product.getId());
-//        if(product != null)
-//            System.out.println("Read OK: " + product);
-//        if(dao.product.delete(product))
-//            System.out.println("Delete OK: " + product);
+        System.out.println("===============================product===================================");
+        Product product = new Product();
+        product.setCategories_id(2);
+        System.out.println(product);
+        product.setDescription("testDescription");
+        if(dao.product.create(product)) {
+            System.out.println("Create OK: " + product);
+        }
+        product.setName("testName");
+        if(dao.product.update(product))
+            System.out.println("Update OK: " + product);
+        product = dao.product.read(product.getId());
+        if(product != null)
+            System.out.println("Read OK: " + product);
+        if(dao.product.delete(product))
+            System.out.println("Delete OK: " + product);
 
 
         System.out.println("===============================blacklist===================================");

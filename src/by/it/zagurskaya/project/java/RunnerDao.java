@@ -40,15 +40,15 @@ public class RunnerDao {
                 c -> c.setName("test_" + c.getName()));
 
         RateNB rateNB = testCRU(rateNBDao,
-                new RateNB(0,currency.getId(),Date.valueOf("2019-02-20"),3.45),
+                new RateNB(0, currency.getId(), Date.valueOf("2019-02-20"), 3.45),
                 c -> c.setSum(0.01 + c.getSum()));
 
         RateCB rateCB = testCRU(rateCBDao,
-                new RateCB(0,currency.getId(),933,Timestamp.valueOf("2019-02-20 15:45:00"),3.40,false),
+                new RateCB(0, currency.getId(), 933, Timestamp.valueOf("2019-02-20 15:45:00"), 3.40, false),
                 c -> c.setSum(0.01 + c.getSum()));
 
-                RateCB rateCBBack = testCRU(rateCBDao,
-                new RateCB(0,933,currency.getId(),Timestamp.valueOf("2019-02-20 15:45:00"),3.42,true),
+        RateCB rateCBBack = testCRU(rateCBDao,
+                new RateCB(0, 933, currency.getId(), Timestamp.valueOf("2019-02-20 15:45:00"), 3.42, true),
                 c -> c.setSum(0.01 + c.getSum()));
 
         Role role = testCRU(roleDao,
@@ -71,7 +71,7 @@ public class RunnerDao {
 
 
         UserOperation userOperation = testCRU(userOperationDao,
-                new UserOperation(0, Timestamp.valueOf("2019-02-20 12:45:00"), 1, 1000, 933, user.getId(), 1000, "Подкрепление", ""),
+                new UserOperation(0, Timestamp.valueOf("2019-02-20 12:45:00"), 1, 1000, 933, user.getId(), duties.getId(), 1000, "Подкрепление", "",null),
                 r -> r.setSum(200 + r.getSum()));
 
         UserEntry userEntry = testCRU(userEntryDao,
@@ -79,11 +79,11 @@ public class RunnerDao {
                 r -> r.setSum(200 + r.getSum()));
 
         SprOperations sprOperations1 = testCRU(sprOperationsDao,
-                new SprOperations(60,"Получено от клиентов",""),
-                r -> r.setName(r.getName()+"денежной наличности"));
+                new SprOperations(60, "Получено от клиентов", ""),
+                r -> r.setName(r.getName() + "денежной наличности"));
 
         SprEntries sprEntries = testCRU(sprEntriesDao,
-                new SprEntries(6001,"Получено денежной наличности (933)",840,sprOperations1.getId(),null,"1010000000933",false,1),
+                new SprEntries(6001, "Получено денежной наличности (933)", 840, sprOperations1.getId(), null, "1010000000933", false, 1),
                 r -> r.setCurrencyId(933));
 
 
@@ -94,9 +94,9 @@ public class RunnerDao {
         testD(dutiesDao, duties);
         testD(roleDao, role);
         testD(userDao, user);
-        testD(rateCBDao,rateCBBack);
-        testD(rateCBDao,rateCB);
-        testD(rateNBDao,rateNB);
+        testD(rateCBDao, rateCBBack);
+        testD(rateCBDao, rateCB);
+        testD(rateNBDao, rateNB);
         testD(currencyDao, currency);
 
     }

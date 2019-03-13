@@ -1,7 +1,9 @@
 <html>
-<%@ include file="include/head.htm" %>
+<%@ include file="include/head.jsp" %>
 <body>
-<%@ include file="include/menu.htm" %>
+<div class="container">
+<%@ include file="include/menu.jsp" %>
 <p>INDEX: ${message}</p>
+</div>
 </body>
 </html>

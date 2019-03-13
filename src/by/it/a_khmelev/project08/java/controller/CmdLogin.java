@@ -33,8 +33,6 @@ public class CmdLogin implements Cmd {
                 return Action.PROFILE;
             }
         }
-
         return Action.LOGIN;
-
     }
 }

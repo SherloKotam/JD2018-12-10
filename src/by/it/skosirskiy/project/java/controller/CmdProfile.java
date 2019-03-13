@@ -16,8 +16,6 @@ public class CmdProfile implements Cmd {
         User user = Util.findUser(req);
         if (user != null) {
             String where=String.format(" WHERE `user_id`='%d'",user.getId());
-
-
             List<Request> requests = Dao.getDao().request.getAll(where);
             req.setAttribute("requests",requests);
             return Action.PROFILE;

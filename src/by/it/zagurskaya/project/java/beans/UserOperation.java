@@ -9,23 +9,27 @@ public class UserOperation implements Entity {
     private double sum;
     private long currencyId;
     private long userId;
-    private long OperationId;
+    private long dutiesId;
+    private long operationId;
     private String specification;
     private String checkingAccount;
+    private String fio;
 
     public UserOperation() {
     }
 
-    public UserOperation(long id, Timestamp timestamp, double rate, double sum, long currencyId, long userId, long operationId, String specification, String checkingAccount) {
+    public UserOperation(long id, Timestamp timestamp, double rate, double sum, long currencyId, long userId, long dutiesId, long operationId, String specification, String checkingAccount, String fio) {
         this.id = id;
         this.timestamp = timestamp;
         this.rate = rate;
         this.sum = sum;
         this.currencyId = currencyId;
         this.userId = userId;
-        OperationId = operationId;
+        this.dutiesId = dutiesId;
+        this.operationId = operationId;
         this.specification = specification;
         this.checkingAccount = checkingAccount;
+        this.fio = fio;
     }
 
     @Override
@@ -77,12 +81,20 @@ public class UserOperation implements Entity {
         this.userId = userId;
     }
 
+    public long getDutiesId() {
+        return dutiesId;
+    }
+
+    public void setDutiesId(long dutiesId) {
+        this.dutiesId = dutiesId;
+    }
+
     public long getOperationId() {
-        return OperationId;
+        return operationId;
     }
 
     public void setOperationId(long operationId) {
-        OperationId = operationId;
+        this.operationId = operationId;
     }
 
     public String getSpecification() {
@@ -101,6 +113,14 @@ public class UserOperation implements Entity {
         this.checkingAccount = checkingAccount;
     }
 
+    public String getFio() {
+        return fio;
+    }
+
+    public void setFio(String fio) {
+        this.fio = fio;
+    }
+
     @Override
     public String toString() {
         return "UserOperation{" +
@@ -110,9 +130,11 @@ public class UserOperation implements Entity {
                 ", sum=" + sum +
                 ", currencyId=" + currencyId +
                 ", userId=" + userId +
-                ", OperationId=" + OperationId +
+                ", dutiesId=" + dutiesId +
+                ", operationId=" + operationId +
                 ", specification='" + specification + '\'' +
                 ", checkingAccount='" + checkingAccount + '\'' +
+                ", fio='" + fio + '\'' +
                 '}';
     }
 }

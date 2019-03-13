@@ -8,30 +8,29 @@ import by.it.zagurskaya.project.java.controller.Cmd;
 import by.it.zagurskaya.project.java.controller.Action;
 import by.it.zagurskaya.project.java.controller.Util;
 import by.it.zagurskaya.project.java.dao.DutiesDao;
+import by.it.zagurskaya.project.java.dao.UserDao;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CmdMain implements Cmd {
     @Override
     public Action execute(HttpServletRequest req) throws Exception {
         User user = Util.findUser(req);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd 00:00:00.000");
-        Date now = new Date();
-        String today = dateFormat.format(now);
-        if (user != null) {
-            String where = String.format(" WHERE `userId`='%d' AND `timestamp` >= '%s' AND `isClose`=0", user.getId(), today);
-            DutiesDao dutiesDao = new DutiesDao();
-            List<Duties> duties = dutiesDao.getAll(where);
+        LocalDate date = LocalDate.now();
+        String today = Util.getFormattedLocalDateStartDateTime(date);
+        DutiesDao dutiesDao = new DutiesDao();
 
-            if (duties.size() != 0) {
-                req.setAttribute("duties", duties);
-            } else {
-                String notduties = "Not open duties";
-                req.setAttribute("notduties", notduties);
-            }
+        if (user != null) {
+            List<User> users = new UserDao().getAll();
+            req.setAttribute("users", users);
+
+            dutiesDao.OpenDutiesUserToday(user, today).stream().limit(1).forEach(d -> req.setAttribute("duties", d));
+
+            String messageDuties = (dutiesDao.OpenDutiesUserToday(user, today).size() > 0) ? " Открыта смена пользователя " + user.getLogin() : " Нет открытых смен у пользователя " + user.getLogin()+". \n Внимание!!!! Перед началом работы необходимо открыть смену!";
+            req.setAttribute("messageDuties", messageDuties);
         }
         Action.MAIN.setPATH("/cash/");
         return Action.MAIN;

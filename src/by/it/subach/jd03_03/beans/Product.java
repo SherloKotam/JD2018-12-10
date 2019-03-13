@@ -1,5 +1,8 @@
 package by.it.subach.jd03_03.beans;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Product {
 
     private long id;
@@ -28,6 +31,7 @@ public class Product {
     }
 
     public double getPrice() {
+
         return price;
     }
 

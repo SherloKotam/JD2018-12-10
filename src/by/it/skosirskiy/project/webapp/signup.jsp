@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <%@ include file="include/head.jsp" %>
@@ -16,7 +17,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="login">Login</label>
                 <div class="col-md-4">
-                    <input id="login" name="login" value="testLogin" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="login" name="login" value="admin1" type="text" placeholder="" class="form-control input-md" required="">
 
                 </div>
             </div>
@@ -26,7 +27,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="password">Password</label>
                 <div class="col-md-4">
-                    <input id="password" name="password" value="testPassword" type="password" placeholder="" class="form-control input-md" required="">
+                    <input id="password" name="password" value="admin1" type="password" placeholder="" class="form-control input-md" required="">
                 </div>
             </div>
 
@@ -34,7 +35,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="email">Email</label>
                 <div class="col-md-4">
-                    <input id="email" name="email" value="test@email.com" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="email" name="email" value="admin1@email.com" type="text" placeholder="" class="form-control input-md" required="">
 
                 </div>
             </div>

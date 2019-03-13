@@ -3,28 +3,27 @@
 <%@ include file="/../include/head.jsp" %>
 <body>
 <div class="container">
-    <%@ include file="/../include/menucash.jsp" %>
-    <p>CashCurrency ${message}</p>
-    <table style="width:100%; height:80%">
-       <tr>
-          <td colspan="8" style="text-align:center;border: 1px solid black;width: 30%;">
-            <ul class="nav flex-column">
-             <li class="nav-item">
-               <a class="nav-link active" href="do?command=AllCurrency">AllCurrency</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="do?command=RateNB">RateNB</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="do?command=RateCB">RateCB</a>
-             </li>
-            </ul>
-          </td>
-          <td style="border: 1px solid black;  text-align: center ;width:70%" data-toggle="dropdown">
-             AllCurrency: ${AllCurrency}
-          </td>
-       </tr>
-    </table>
+    <%@ include file="/../include/menucashnew.jsp" %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <H4>Перечень валют</H4>
+   ------------------------------------------------------------------------------------------
+   <div class="row">   <div class=col-md-2>|      Номер</div>
+                       <div class=col-md-2>|      ISO</div>
+                       <div class=col-md-2>|      Наименование</div>
+                       <div class=col-md-1>|</div></div>
+   ------------------------------------------------------------------------------------------
+       <c:forEach items="${currency}" var="currency" >
+           <div class="row">
+               <div class="col-md-2">|      ${currency.id}</div>
+               <div class="col-md-2">|      ${currency.iso}</div>
+               <div class="col-md-2">|      ${currency.name}</div>
+               <div class="col-md-1">|  </div>
+           </div>
+       </c:forEach>
+   ------------------------------------------------------------------------------------------
 </div>
 </body>
 </html>

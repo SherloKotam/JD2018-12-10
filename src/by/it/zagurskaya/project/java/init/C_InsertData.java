@@ -1,9 +1,9 @@
 package by.it.zagurskaya.project.java.init;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import org.apache.commons.codec.Charsets;
+
+import java.io.*;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,7 +23,7 @@ public class C_InsertData {
         insertDataToTable(connection, comandsInsertList);
     }
 
-    private static String getPath(Class<?> clazz, String filename) {
+        private static String getPath(Class<?> clazz, String filename) {
         String path = clazz.getResource("").toString()
                 .replaceAll("/WEB-INF/.*", "/")
                 .replace("file:/", "") + "sql/";
@@ -41,7 +41,8 @@ public class C_InsertData {
 
     private static StringBuilder readTextFile(String path, StringBuilder textFromFile) {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charsets.UTF_8))) {
+//        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             for (String value = br.readLine(); value != null; value = br.readLine()) {
                 textFromFile.append(value).append('\n');
                 int i = 0;

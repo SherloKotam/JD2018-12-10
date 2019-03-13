@@ -8,11 +8,11 @@
         <fieldset>
 
             <!-- Form Name -->
-            <legend>Sign Up</legend>
+            <legend>Регистрация</legend>
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="login">Login</label>
+                <label class="col-md-4 control-label" for="login">Логин</label>
                 <div class="col-md-4">
                     <input id="login" name="login" value="testLogin" type="text" placeholder="" class="form-control input-md" required="">
 
@@ -21,7 +21,7 @@
 
             <!-- Password input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="password">Password</label>
+                <label class="col-md-4 control-label" for="password">Пароль</label>
                 <div class="col-md-4">
                     <input id="password" name="password" value="testPassword" type="password" placeholder="" class="form-control input-md" required="">
 
@@ -30,7 +30,7 @@
 
             <!-- Select Basic -->
             <div class="form-group">
-              <label class="col-md-4 control-label" for="roleId">Role</label>
+              <label class="col-md-4 control-label" for="roleId">Роль</label>
               <div class="col-md-4">
                 <select id="roleId" name="roleId" class="form-control">
                   <option value="2">kassir</option>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="signup"></label>
                 <div class="col-md-4">
-                    <button id="signup" name="signup" class="btn btn-primary">Signup</button>
+                    <button id="signup" name="signup" class="btn btn-primary">Регистрация</button>
                 </div>
             </div>
 

@@ -2,6 +2,7 @@ package by.it.zagurskaya.project.java.dao;
 
 import by.it.zagurskaya.project.java.ConnCreator;
 import by.it.zagurskaya.project.java.beans.Duties;
+import by.it.zagurskaya.project.java.beans.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -68,6 +69,51 @@ public class DutiesDao extends AbstractDao implements Dao<Duties> {
             }
         }
         return result;
+    }
+    public static Integer NumberDutiesToday(User user, String today) throws SQLException {
+        DutiesDao dutiesDao = new DutiesDao();
+
+        if (user == null) {
+            throw new IllegalArgumentException("пользователь должен быть!!!");
+        }
+
+
+        String where = String.format(" WHERE `userId`='%d' AND `timestamp` >= '%s' AND `isClose`= 1", user.getId(), today);
+        List<Duties> closeDutiesList = dutiesDao.getAll(where);
+
+        Integer numberDuties = closeDutiesList.stream().map(Duties::getNumber).max(Integer::compareTo).orElse(0) + 1;
+//            if (closeDutiesList.size() != 0) {
+//                List<Integer> closeDutiesNumberList = new ArrayList<Integer>();
+//                for (Duties duties : closeDutiesList) {
+//                    closeDutiesNumberList.add(duties.getNumber());
+//                }
+//                numberDuties = Integer.parseInt(Collections.max(closeDutiesNumberList).toString()) + 1;
+//            } else {
+//                numberDuties = 1;
+//            }
+        return numberDuties;
+    }
+
+    public Long IdDutiesToday(User user, String today) throws SQLException {
+        DutiesDao dutiesDao = new DutiesDao();
+
+        if (user == null) {
+            throw new IllegalArgumentException("пользователь должен быть!!!");
+        }
+
+
+        String where = String.format(" WHERE `userId`='%d' AND `timestamp` >= '%s' AND `isClose`= 1", user.getId(), today);
+        List<Duties> closeDutiesList = dutiesDao.getAll(where);
+
+        Long numberDuties = closeDutiesList.stream().map(Duties::getId).max(Long::compareTo).orElseThrow(IllegalArgumentException::new);
+        return numberDuties;
+    }
+
+    public List<Duties> OpenDutiesUserToday(User user, String today) throws SQLException {
+        String where = String.format(" WHERE `userId`='%d' AND `timestamp` >= '%s' AND `isClose`=0", user.getId(), today);
+        DutiesDao dutiesDao = new DutiesDao();
+        List<Duties> duties = dutiesDao.getAll(where);
+        return duties;
     }
 
 }

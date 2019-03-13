@@ -10,7 +10,9 @@ public enum Action {
     LOGIN(new CmdLogin()),
     ORDER(new CmdOrder()),
     PROFILE(new CmdProfile()),
-    RESET(new CmdReset());
+    RESET(new CmdReset()),
+    RESTAURANT(new CmdRestaurant()),
+    ADMIN(new CmdAdmin());
 
     Action(Cmd command) {
         this.command = command;
@@ -31,4 +33,6 @@ public enum Action {
     String getJSP(){
          return "/"+name().toLowerCase()+".jsp";
     }
+
+
 }
