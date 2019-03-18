@@ -56,14 +56,8 @@ public class ConsoleRunner {
         }
         Var.saveVarToFile();
         timeFinish = new Date();
-        Reporter reporter = new Reporter();
-        if (detailedReport) {
-            reporter.setBuilder(new DetailedReportBuilder());
-        } else reporter.setBuilder(new BriefReportBuilder());
-        Report report = reporter.buildReport();
-        report.printReport(report);
         System.out.println("\n" + resMan.get(Service.REPORT_LINK));
-        System.out.println(report.getOutputFileName().replace("/", "\\"));
+        reportPreparing();
     }
 
     private static void choosingLanguage(ResMan resMan, BufferedReader reader) throws IOException {
@@ -93,4 +87,15 @@ public class ConsoleRunner {
         System.out.println(resMan.get(Service.TO_FINISH));
         System.out.println();
     }
+
+    private static void reportPreparing() {
+        Reporter reporter = new Reporter();
+        if (detailedReport) {
+            reporter.setBuilder(new DetailedReportBuilder());
+        } else reporter.setBuilder(new BriefReportBuilder());
+        Report report = reporter.buildReport();
+        report.printReport(report);
+        System.out.println(report.getOutputFileName().replace("/", "\\"));
+    }
+
 }

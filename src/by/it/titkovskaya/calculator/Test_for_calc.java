@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class Test_jd02_04 {
+public class Test_for_calc {
     @Test
     public void A_scalar_add() throws Exception {
         Parser parser = new Parser();
@@ -18,7 +18,6 @@ public class Test_jd02_04 {
     @Test
     public void A_scalar_mul() throws Exception {
         Parser parser = new Parser();
-        //тут ваши выражения
         String actual = parser.calc("B=A*3.5");
         System.out.println("Actual output: " + actual);
         System.out.println("-----------------------------");
