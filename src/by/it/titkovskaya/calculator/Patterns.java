@@ -9,7 +9,7 @@ class Patterns {
     static final String OPERATION = "(?<=[^-+*/={,( ])[-+*/=]";
     static final String CALCULATION = "(?<=[^-+*/={, ])[-+*/]";
     static final String PRIOR_OPERATION
-            = "\\((" + VARIABLE + "|" + SCALAR + "|" + VECTOR + "|" + MATRIX + ")"
+            = "\\((" + VARIABLE + "||" + SCALAR + "||" + VECTOR + "||" + MATRIX + ")"
             + OPERATION
-            + "(" + VARIABLE + "|" + SCALAR + "|" + VECTOR + "|" + MATRIX + ")\\)";
+            + "(" + VARIABLE + "||" + SCALAR + "||" + VECTOR + "||" + MATRIX + ")\\)";
     }
