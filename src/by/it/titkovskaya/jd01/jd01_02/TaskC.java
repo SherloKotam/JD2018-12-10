@@ -8,7 +8,13 @@ public class TaskC {
         int n = scanner.nextInt();
         step1(n);
         System.out.println(step2(step1(n)));
-        step3(step1(n));
+        int[][] ints = step3(step1(n));
+        for (int[] innerArray : ints) {
+            for (int data : innerArray) {
+                System.out.print(data + " ");
+            }
+            System.out.println();
+        }
     }
 
     private static int[][] step1(int n) {
@@ -39,23 +45,23 @@ public class TaskC {
 
     private static int step2(int[][] mas) {
         int sum = 0;
-        for (int i = 0; i < mas.length; i++) {
-            for (int j = 0; j < mas[i].length; j++) {
+        for (int[] ma : mas) {
+            for (int j = 0; j < ma.length; j++) {
                 int colFirst, colSec;
-                if (mas[i][j] >= 0) {
+                if (ma[j] >= 0) {
                     colFirst = j;
-                    for (int k = colFirst + 1; k < mas[i].length; k++) {
-                        if (mas[i][k] >= 0) {
+                    for (int k = colFirst + 1; k < ma.length; k++) {
+                        if (ma[k] >= 0) {
                             colSec = k;
                             if ((colSec - colFirst) > 1) {
                                 for (int m = colFirst + 1; m < colSec; m++) {
-                                    sum += mas[i][m];
+                                    sum += ma[m];
                                 }
-                                j = mas[i].length;
-                                k = mas[i].length;
+                                j = ma.length;
+                                k = ma.length;
                             } else {
-                                j = mas[i].length;
-                                k = mas[i].length;
+                                j = ma.length;
+                                k = ma.length;
                             }
                         }
                     }
@@ -70,10 +76,10 @@ public class TaskC {
         boolean[] delCol = new boolean[mas[0].length];
         boolean[] delRow = new boolean[mas.length];
         int max = Integer.MIN_VALUE;
-        for (int i = 0; i < mas.length; i++) {
-            for (int j = 0; j < mas[i].length; j++) {
-                if (mas[i][j] > max)
-                    max = mas[i][j];
+        for (int[] ma : mas) {
+            for (int aMa : ma) {
+                if (aMa > max)
+                    max = aMa;
             }
         }
         for (int i = 0; i < mas.length; i++) {
@@ -102,12 +108,6 @@ public class TaskC {
                 ir++;
                 jr = 0;
             }
-        }
-        for (int[] innerArray : res) {
-            for (int element : innerArray) {
-                System.out.print(element + " ");
-            }
-            System.out.println();
         }
         return res;
     }
