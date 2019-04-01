@@ -21,19 +21,12 @@ class Util {
         }
         return albums;
     }
-
+    
     static List<String> showTracks(int minLength, List<Album> albums) {
         List<String> trackNames = new ArrayList<>();
-        for (Album album : albums) {
-            List<Track> tracks = album.getTracks();
-            for (Track track : tracks) {
-                if (track.getTrackLength() > minLength) {
-                    String trackName = "\n" + album.getAlbumName() + "-" + track.getTrackName()
-                            + "-" + track.getTrackLength() + " sec";
-                    trackNames.add(trackName);
-                }
-            }
-        }
+        albums.forEach(album -> album.getTracks().stream()
+                .filter(track -> track.getTrackLength() > minLength)
+                .forEach(track -> trackNames.add(album.getAlbumName() + "-" + track.toString())));
         return trackNames;
     }
 
